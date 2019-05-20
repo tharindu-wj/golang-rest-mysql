@@ -1,0 +1,22 @@
+{
+    "version": 2,
+    "name": "Test API Gateway",
+    "port": 8000,
+    "cache_ttl": "3600s",
+    "timeout": "3s",
+    "extra_config": {},
+    "output_encoding": "json",
+    "endpoints": [
+        {
+            "endpoint": "/posts",
+            "backend": [
+              {
+                "url_pattern": "/posts",
+                "host": [
+                  "http://localhost:8081"
+                ]
+              }
+            ]
+          }
+    ]
+}

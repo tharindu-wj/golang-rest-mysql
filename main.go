@@ -103,9 +103,8 @@ func getUser(w http.ResponseWriter, r *http.Request) {
 		user.Email = email
 		user.Created = created_at
 	}
-	json.NewEncoder(w).Encode(user)
-
 	defer db.Close()
+	json.NewEncoder(w).Encode(user)
 }
 
 //get all companies
@@ -129,9 +128,8 @@ func allCompanies(w http.ResponseWriter, r *http.Request) {
 		company.Location = location
 		companies = append(companies, company)
 	}
-	json.NewEncoder(w).Encode(companies)
-
 	defer db.Close()
+	json.NewEncoder(w).Encode(companies)
 }
 
 //home page route
