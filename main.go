@@ -10,7 +10,7 @@ import (
 	"net/http"
 )
 
-//single post objectgit
+//single post object
 type Post struct {
 	Id      int
 	Title   string
