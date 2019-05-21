@@ -8,15 +8,28 @@
     "output_encoding": "json",
     "endpoints": [
         {
-            "endpoint": "/posts",
+            "endpoint": "/abc/{id}",
             "backend": [
+
               {
-                "url_pattern": "/posts",
+                "url_pattern": "/user/{id}",
                 "host": [
                   "http://localhost:8081"
                 ]
               }
             ]
+          },
+      {
+        "endpoint": "/posts",
+        "backend": [
+
+          {
+            "url_pattern": "/posts",
+            "host": [
+              "http://localhost:8081"
+            ]
           }
+        ]
+      }
     ]
 }

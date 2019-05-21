@@ -24,6 +24,7 @@ type User struct {
 	Id      int
 	Name    string
 	Email   string
+	Company int
 	Created string
 }
 
@@ -92,19 +93,51 @@ func getUser(w http.ResponseWriter, r *http.Request) {
 	user := User{}
 
 	for selDB.Next() {
-		var id int
+		var id, company int
 		var name, email, created_at string
-		err = selDB.Scan(&id, &name, &email, &created_at)
+		err = selDB.Scan(&id, &name, &email, &company, &created_at)
 		if err != nil {
 			panic(err.Error())
 		}
 		user.Id = id
 		user.Name = name
 		user.Email = email
+		user.Company = company
 		user.Created = created_at
 	}
 	defer db.Close()
 	json.NewEncoder(w).Encode(user)
+}
+
+//all user data
+func allUsers(w http.ResponseWriter, r *http.Request) {
+	db := dbConn()
+	selDB, err := db.Query("SELECT * FROM users ORDER BY created_at DESC")
+	if err != nil {
+		panic(err.Error())
+	}
+
+	user := User{}
+	users := []User{}
+
+	for selDB.Next() {
+		var id, company int
+		var name, email, created_at string
+		err = selDB.Scan(&id, &name, &email, &company, &created_at)
+		if err != nil {
+			panic(err.Error())
+		}
+		user.Id = id
+		user.Name = name
+		user.Email = email
+		user.Company = company
+		user.Created = created_at
+
+		users = append(users, user)
+	}
+	defer db.Close()
+	json.NewEncoder(w).Encode(users)
+
 }
 
 //get all companies
@@ -144,6 +177,7 @@ func handleRequests() {
 	testRouter.HandleFunc("/", homePage)
 	testRouter.HandleFunc("/posts", allPosts).Methods("GET")
 	testRouter.HandleFunc("/companies", allCompanies).Methods("GET")
+	testRouter.HandleFunc("/users", allUsers).Methods("GET")
 	testRouter.HandleFunc("/user/{id}", getUser).Methods("GET")
 
 	log.Fatal(http.ListenAndServe(":8081", testRouter))
