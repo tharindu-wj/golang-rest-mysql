@@ -12,25 +12,25 @@ import (
 
 //single post object
 type Post struct {
-	Id      int
+	P_Id      int
 	Title   string
 	Body    string
 	Created string
-	User    int
+	U_Id    int
 }
 
 //single user object
 type User struct {
-	Id      int
+	U_Id      int
 	Name    string
 	Email   string
-	Company int
+	C_Id int
 	Created string
 }
 
 //single company object
 type Company struct {
-	Id       int
+	C_Id       int
 	Name     string
 	Location string
 }
@@ -63,16 +63,16 @@ func allPosts(w http.ResponseWriter, r *http.Request) {
 	post := Post{}
 	posts := []Post{}
 	for selDB.Next() {
-		var id, user int
+		var p_id, u_id int
 		var title, body, created_at string
-		err = selDB.Scan(&id, &title, &body, &user, &created_at)
+		err = selDB.Scan(&p_id, &title, &body, &u_id, &created_at)
 		if err != nil {
 			panic(err.Error())
 		}
-		post.Id = id
+		post.P_Id = p_id
 		post.Title = title
 		post.Body = body
-		post.User = user
+		post.U_Id = u_id
 		post.Created = created_at
 		posts = append(posts, post)
 	}
@@ -93,16 +93,16 @@ func getUser(w http.ResponseWriter, r *http.Request) {
 	user := User{}
 
 	for selDB.Next() {
-		var id, company int
+		var u_id, c_id int
 		var name, email, created_at string
-		err = selDB.Scan(&id, &name, &email, &company, &created_at)
+		err = selDB.Scan(&u_id, &name, &email, &c_id, &created_at)
 		if err != nil {
 			panic(err.Error())
 		}
-		user.Id = id
+		user.U_Id = u_id
 		user.Name = name
 		user.Email = email
-		user.Company = company
+		user.C_Id = c_id
 		user.Created = created_at
 	}
 	defer db.Close()
@@ -121,16 +121,16 @@ func allUsers(w http.ResponseWriter, r *http.Request) {
 	users := []User{}
 
 	for selDB.Next() {
-		var id, company int
+		var u_id, c_id int
 		var name, email, created_at string
-		err = selDB.Scan(&id, &name, &email, &company, &created_at)
+		err = selDB.Scan(&u_id, &name, &email, &c_id, &created_at)
 		if err != nil {
 			panic(err.Error())
 		}
-		user.Id = id
+		user.U_Id = u_id
 		user.Name = name
 		user.Email = email
-		user.Company = company
+		user.C_Id = c_id
 		user.Created = created_at
 
 		users = append(users, user)
@@ -150,13 +150,13 @@ func allCompanies(w http.ResponseWriter, r *http.Request) {
 	company := Company{}
 	companies := []Company{}
 	for selDB.Next() {
-		var id int
+		var c_id int
 		var name, location string
-		err = selDB.Scan(&id, &name, &location)
+		err = selDB.Scan(&c_id, &name, &location)
 		if err != nil {
 			panic(err.Error())
 		}
-		company.Id = id
+		company.C_Id = c_id
 		company.Name = name
 		company.Location = location
 		companies = append(companies, company)

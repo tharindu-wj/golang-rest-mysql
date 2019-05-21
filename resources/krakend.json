@@ -8,28 +8,31 @@
     "output_encoding": "json",
     "endpoints": [
         {
-            "endpoint": "/abc/{id}",
+            "endpoint": "/abc",
             "backend": [
 
               {
-                "url_pattern": "/user/{id}",
+                "is_collection": true,
+                "url_pattern": "/users",
+                "host": [
+                  "http://localhost:8081"
+                ]
+              },
+              {
+                "is_collection": true,
+                "url_pattern": "/companies",
+                "host": [
+                  "http://localhost:8081"
+                ]
+              },
+              {
+                "is_collection": true,
+                "url_pattern": "/posts",
                 "host": [
                   "http://localhost:8081"
                 ]
               }
             ]
-          },
-      {
-        "endpoint": "/posts",
-        "backend": [
-
-          {
-            "url_pattern": "/posts",
-            "host": [
-              "http://localhost:8081"
-            ]
           }
-        ]
-      }
     ]
 }
