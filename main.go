@@ -12,7 +12,7 @@ import (
 
 //single post object
 type Post struct {
-	P_Id      int
+	P_Id    int
 	Title   string
 	Body    string
 	Created string
@@ -21,16 +21,16 @@ type Post struct {
 
 //single user object
 type User struct {
-	U_Id      int
+	U_Id    int
 	Name    string
 	Email   string
-	C_Id int
+	C_Id    int
 	Created string
 }
 
 //single company object
 type Company struct {
-	C_Id       int
+	C_Id     int
 	Name     string
 	Location string
 }
