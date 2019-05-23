@@ -4,6 +4,7 @@ import (
 	"../db"
 	"../model"
 	"encoding/json"
+	"fmt"
 	"github.com/gorilla/mux"
 	"net/http"
 )
@@ -55,4 +56,20 @@ func GetPost(w http.ResponseWriter, r *http.Request) {
 	}
 
 	json.NewEncoder(w).Encode(post)
+}
+
+//save post
+func CreatePost(w http.ResponseWriter, r *http.Request) {
+
+	r.ParseForm()
+	fmt.Println( r.Form.Get("title"))
+	items := map[string]string{
+		"title" : r.Form.Get("title"),
+		"body" :r.Form.Get("body"),
+		"u_id" : r.Form.Get("u_id"),
+	}
+
+	db.Save("posts", items)
+
+	//json.NewEncoder(w).Encode(post)
 }

@@ -6,19 +6,19 @@ import (
 )
 
 //database connection
-func DBConn() (db *sql.DB) {
+func DBConn() (conn *sql.DB) {
 
 	dbDriver := "mysql"
 	dbUser := "root"
 	dbPass := "asdf1234"
 	dbName := "go_rest_mysql"
 
-	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
+	conn, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
 
 	// if there is an error opening the connection, handle it
 	if err != nil {
 		panic(err.Error())
 	}
 
-	return db
+	return conn
 }

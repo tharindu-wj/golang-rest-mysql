@@ -14,11 +14,12 @@ func handleRequests() {
 	subRouter := router.PathPrefix("/api/v1").Subrouter()
 
 	subRouter.HandleFunc("/posts", handler.GetPosts).Methods("GET")
+	subRouter.HandleFunc("/post/create", handler.CreatePost).Methods("POST")
 	subRouter.HandleFunc("/post/{id}", handler.GetPost).Methods("GET")
 	subRouter.HandleFunc("/companies", handler.GetCompanies).Methods("GET")
 	subRouter.HandleFunc("/users", handler.GetUsers).Methods("GET")
 
-	log.Fatal(http.ListenAndServe(":3000", router))
+	log.Fatal(http.ListenAndServe(":3001", router))
 }
 
 //program starts from here
