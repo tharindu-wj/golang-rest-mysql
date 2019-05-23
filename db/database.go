@@ -25,7 +25,7 @@ func FindBy(table string, key string) *sql.Rows {
 	return result
 }
 
-func Save(table string, item map[string]string) {
+func Save(table string, item map[string]string) bool {
 
 	var columns, values bytes.Buffer
 
@@ -55,6 +55,8 @@ func Save(table string, item map[string]string) {
 	_, err := connection.Query("INSERT INTO " + table + "(" + columnString + ") VALUES(" + valueString + ")")
 	if err != nil {
 		panic(err.Error())
+	} else {
+		return true
 	}
 
 }

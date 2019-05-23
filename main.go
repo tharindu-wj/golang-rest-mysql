@@ -18,6 +18,7 @@ func handleRequests() {
 	subRouter.HandleFunc("/post/{id}", handler.GetPost).Methods("GET")
 	subRouter.HandleFunc("/companies", handler.GetCompanies).Methods("GET")
 	subRouter.HandleFunc("/users", handler.GetUsers).Methods("GET")
+	subRouter.HandleFunc("/user/create", handler.CreateUser).Methods("POST")
 
 	log.Fatal(http.ListenAndServe(":3001", router))
 }
