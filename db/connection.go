@@ -11,7 +11,7 @@ func DBConn() (db *sql.DB) {
 	dbDriver := "mysql"
 	dbUser := "root"
 	dbPass := "asdf1234"
-	dbName := "go_leafycode"
+	dbName := "go_rest_mysql"
 
 	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
 

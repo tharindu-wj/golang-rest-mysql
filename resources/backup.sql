@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: May 22, 2019 at 07:57 PM
+-- Generation Time: May 23, 2019 at 06:04 PM
 -- Server version: 5.7.26-0ubuntu0.18.04.1
 -- PHP Version: 7.2.17-0ubuntu0.18.04.1
 
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `go_leafycode`
+-- Database: `go_rest_mysql`
 --
 
 -- --------------------------------------------------------
@@ -31,18 +31,19 @@ SET time_zone = "+00:00";
 CREATE TABLE `companies` (
   `c_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `location` varchar(255) NOT NULL
+  `location` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `companies`
 --
 
-INSERT INTO `companies` (`c_id`, `name`, `location`) VALUES
-(1, 'Company 1', 'Location 1'),
-(2, 'Company 2', 'Location 2'),
-(3, 'Company 3', 'Location 3'),
-(4, 'Company 4', 'Location 4');
+INSERT INTO `companies` (`c_id`, `name`, `location`, `created_at`) VALUES
+(1, 'Company 1', 'Location 1', '2019-05-23 10:48:40'),
+(2, 'Company 2', 'Location 2', '2019-05-23 10:48:40'),
+(3, 'Company 3', 'Location 3', '2019-05-23 10:48:40'),
+(4, 'Company 4', 'Location 4', '2019-05-23 10:48:40');
 
 -- --------------------------------------------------------
 
