@@ -12,13 +12,3 @@
 - http://localhost:3000/api/v1/users
     - `GET`: get users
   
-
-
-## Data Structure
-```json
-{
-  "name": "golang",
-  "tel": "012-345-6789",
-  "email": "golang-nuts@googlegroups.com"
-}
-```

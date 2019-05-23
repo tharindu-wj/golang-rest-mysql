@@ -13,23 +13,23 @@
 
               {
                 "is_collection": true,
-                "url_pattern": "/users",
+                "url_pattern": "/api/v1/users",
                 "host": [
-                  "http://localhost:8081"
+                  "http://localhost:3000"
                 ]
               },
               {
                 "is_collection": true,
-                "url_pattern": "/companies",
+                "url_pattern": "/api/v1/companies",
                 "host": [
-                  "http://localhost:8081"
+                  "http://localhost:3000"
                 ]
               },
               {
                 "is_collection": true,
-                "url_pattern": "/posts",
+                "url_pattern": "/api/v1/posts",
                 "host": [
-                  "http://localhost:8081"
+                  "http://localhost:3000"
                 ]
               }
             ]
