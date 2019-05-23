@@ -15,16 +15,16 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 	users := []model.User{}
 
 	for result.Next() {
-		var u_id, c_id int
+		var id, company int
 		var name, email, created_at string
-		err := result.Scan(&u_id, &name, &email, &c_id, &created_at)
+		err := result.Scan(&id, &name, &email, &company, &created_at)
 		if err != nil {
 			panic(err.Error())
 		}
-		user.U_Id = u_id
+		user.Id = id
 		user.Name = name
 		user.Email = email
-		user.C_Id = c_id
+		user.Company = company
 		user.Created = created_at
 
 		users = append(users, user)
@@ -40,7 +40,7 @@ func CreateUser(w http.ResponseWriter, r *http.Request) {
 	items := map[string]string{
 		"name" : r.Form.Get("name"),
 		"email" :r.Form.Get("email"),
-		"c_id" : r.Form.Get("c_id"),
+		"company" : r.Form.Get("company"),
 	}
 
 	result := db.Save("users", items)

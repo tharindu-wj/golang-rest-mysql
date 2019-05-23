@@ -14,16 +14,16 @@ func GetPosts(w http.ResponseWriter, r *http.Request) {
 	post := model.Post{}
 	posts := []model.Post{}
 	for result.Next() {
-		var p_id, u_id int
+		var id, user int
 		var title, body, created_at string
-		err := result.Scan(&p_id, &title, &body, &u_id, &created_at)
+		err := result.Scan(&id, &title, &body, &user, &created_at)
 		if err != nil {
 			panic(err.Error())
 		}
-		post.P_Id = p_id
+		post.Id = id
 		post.Title = title
 		post.Body = body
-		post.U_Id = u_id
+		post.User = user
 		post.Created = created_at
 		posts = append(posts, post)
 	}
@@ -41,16 +41,16 @@ func GetPost(w http.ResponseWriter, r *http.Request) {
 	post := model.Post{}
 
 	for result.Next() {
-		var p_id, u_id int
+		var id, user int
 		var title, body, created_at string
-		err := result.Scan(&p_id, &title, &body, &u_id, &created_at)
+		err := result.Scan(&id, &title, &body, &user, &created_at)
 		if err != nil {
 			panic(err.Error())
 		}
-		post.P_Id = p_id
+		post.Id = id
 		post.Title = title
 		post.Body = body
-		post.U_Id = u_id
+		post.User = user
 		post.Created = created_at
 	}
 
@@ -63,12 +63,23 @@ func CreatePost(w http.ResponseWriter, r *http.Request) {
 	items := map[string]string{
 		"title" : r.Form.Get("title"),
 		"body" :r.Form.Get("body"),
-		"u_id" : r.Form.Get("u_id"),
+		"user" : r.Form.Get("user"),
 	}
 
 	result := db.Save("posts", items)
 
 	if(result){
 		json.NewEncoder(w).Encode("New Post Created")
+	}
+}
+
+//save post
+func RemovePost(w http.ResponseWriter, r *http.Request) {
+	postID := mux.Vars(r)["id"]
+
+	result := db.Remove("posts", postID)
+
+	if(result){
+		json.NewEncoder(w).Encode("Post Deleted")
 	}
 }

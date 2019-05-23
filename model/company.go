@@ -1,7 +1,7 @@
 package model
 
 type Company struct {
-	C_Id     int
+	Id     int
 	Name     string
 	Location string
 	Created string
