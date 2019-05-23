@@ -2,20 +2,13 @@ package db
 
 import "database/sql"
 
-//database connection
-func DBConn() (db *sql.DB) {
+var conn = DBConn()
 
-	dbDriver := "mysql"
-	dbUser := "root"
-	dbPass := "asdf1234"
-	dbName := "go_leafycode"
-
-	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
-
-	// if there is an error opening the connection, handle it
+func FindAll(table string) *sql.Rows {
+	selDB, err := conn.Query("SELECT * FROM " + table + " ORDER BY created_at DESC")
 	if err != nil {
 		panic(err.Error())
 	}
 
-	return db
+	return selDB
 }

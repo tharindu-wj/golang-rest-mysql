@@ -8,19 +8,15 @@ import (
 	"net/http"
 )
 
-//get all posts
+//get all posts w http.ResponseWriter, r *http.Request
 func GetPosts(w http.ResponseWriter, r *http.Request) {
-	db := db.DBConn()
-	selDB, err := db.Query("SELECT * FROM posts ORDER BY created_at DESC")
-	if err != nil {
-		panic(err.Error())
-	}
+	result := db.FindAll("posts")
 	post := model.Post{}
 	posts := []model.Post{}
-	for selDB.Next() {
+	for result.Next() {
 		var p_id, u_id int
 		var title, body, created_at string
-		err = selDB.Scan(&p_id, &title, &body, &u_id, &created_at)
+		err := result.Scan(&p_id, &title, &body, &u_id, &created_at)
 		if err != nil {
 			panic(err.Error())
 		}
@@ -31,9 +27,9 @@ func GetPosts(w http.ResponseWriter, r *http.Request) {
 		post.Created = created_at
 		posts = append(posts, post)
 	}
+
 	json.NewEncoder(w).Encode(posts)
 
-	defer db.Close()
 }
 
 //get single post data

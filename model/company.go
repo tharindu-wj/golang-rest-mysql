@@ -4,4 +4,5 @@ type Company struct {
 	C_Id     int
 	Name     string
 	Location string
+	Created string
 }
