@@ -1,9 +1,9 @@
-package app
+package db
 
 import "database/sql"
 
 //database connection
-func dbConn() (db *sql.DB) {
+func DBConn() (db *sql.DB) {
 
 	dbDriver := "mysql"
 	dbUser := "root"
