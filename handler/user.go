@@ -9,19 +9,15 @@ import (
 
 //get all users
 func GetUsers(w http.ResponseWriter, r *http.Request) {
-	db := db.DBConn()
-	selDB, err := db.Query("SELECT * FROM users ORDER BY created_at DESC")
-	if err != nil {
-		panic(err.Error())
-	}
+	result := db.FindAll("users")
 
 	user := model.User{}
 	users := []model.User{}
 
-	for selDB.Next() {
+	for result.Next() {
 		var u_id, c_id int
 		var name, email, created_at string
-		err = selDB.Scan(&u_id, &name, &email, &c_id, &created_at)
+		err := result.Scan(&u_id, &name, &email, &c_id, &created_at)
 		if err != nil {
 			panic(err.Error())
 		}
@@ -33,7 +29,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 
 		users = append(users, user)
 	}
-	defer db.Close()
+
 	json.NewEncoder(w).Encode(users)
 
 }

@@ -35,18 +35,15 @@ func GetPosts(w http.ResponseWriter, r *http.Request) {
 //get single post data
 func GetPost(w http.ResponseWriter, r *http.Request) {
 	postID := mux.Vars(r)["id"]
-	db := db.DBConn()
-	selDB, err := db.Query("SELECT * FROM posts WHERE p_id=?", postID)
-	if err != nil {
-		panic(err.Error())
-	}
+
+	result := db.FindBy("posts", postID)
 
 	post := model.Post{}
 
-	for selDB.Next() {
+	for result.Next() {
 		var p_id, u_id int
 		var title, body, created_at string
-		err = selDB.Scan(&p_id, &title, &body, &u_id, &created_at)
+		err := result.Scan(&p_id, &title, &body, &u_id, &created_at)
 		if err != nil {
 			panic(err.Error())
 		}
@@ -56,6 +53,6 @@ func GetPost(w http.ResponseWriter, r *http.Request) {
 		post.U_Id = u_id
 		post.Created = created_at
 	}
-	defer db.Close()
+
 	json.NewEncoder(w).Encode(post)
 }
