@@ -6,6 +6,7 @@ import (
 	"fmt"
 )
 
+//connection
 var connection = DBConn()
 
 //get all rows from a table
