@@ -1,38 +1,94 @@
 {
-    "version": 2,
-    "name": "Test API Gateway",
-    "port": 8000,
-    "cache_ttl": "3600s",
-    "timeout": "3s",
-    "extra_config": {},
-    "output_encoding": "json",
-    "endpoints": [
+  "version": 2,
+  "name": "Test API Gateway",
+  "port": 8000,
+  "cache_ttl": "3600s",
+  "timeout": "3s",
+  "extra_config": {},
+  "output_encoding": "json",
+  "endpoints": [
+    {
+      "endpoint": "/users",
+      "backend": [
         {
-            "endpoint": "/abc",
-            "backend": [
-
-              {
-                "is_collection": true,
-                "url_pattern": "/api/v1/users",
-                "host": [
-                  "http://localhost:3000"
-                ]
-              },
-              {
-                "is_collection": true,
-                "url_pattern": "/api/v1/companies",
-                "host": [
-                  "http://localhost:3000"
-                ]
-              },
-              {
-                "is_collection": true,
-                "url_pattern": "/api/v1/posts",
-                "host": [
-                  "http://localhost:3000"
-                ]
-              }
-            ]
+          "is_collection": true,
+          "url_pattern": "/api/v1/users",
+          "host": [
+            "http://localhost:3000"
+          ]
+        }
+      ]
+    },
+    {
+      "endpoint": "/posts",
+      "backend": [
+        {
+          "is_collection": true,
+          "url_pattern": "/api/v1/posts",
+          "host": [
+            "http://localhost:3000"
+          ]
+        }
+      ]
+    },
+    {
+      "endpoint": "/companies",
+      "backend": [
+        {
+          "is_collection": true,
+          "url_pattern": "/api/v1/companies",
+          "host": [
+            "http://localhost:3000"
+          ]
+        }
+      ]
+    },
+    {
+      "endpoint": "/post/{id}",
+      "backend": [
+        {
+          "is_collection": false,
+          "url_pattern": "/api/v1/post/{id}",
+          "host": [
+            "http://localhost:3000"
+          ]
+        }
+      ]
+    },
+    {
+      "endpoint": "/all",
+      "backend": [
+        {
+          "is_collection": true,
+          "url_pattern": "/api/v1/posts",
+          "host": [
+            "http://localhost:3000"
+          ],
+          "mapping": {
+            "collection": "myposts"
           }
-    ]
+        },
+        {
+          "is_collection": true,
+          "url_pattern": "/api/v1/users",
+          "host": [
+            "http://localhost:3000"
+          ],
+          "mapping": {
+            "collection": "myusers"
+          }
+        },
+        {
+          "is_collection": true,
+          "url_pattern": "/api/v1/companies",
+          "host": [
+            "http://localhost:3000"
+          ],
+          "mapping": {
+            "collection": "mycompanies"
+          }
+        }
+      ]
+    }
+  ]
 }
