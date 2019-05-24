@@ -21,7 +21,7 @@ func handleRequests() {
 	subRouter.HandleFunc("/users", handler.GetUsers).Methods("GET")
 	subRouter.HandleFunc("/user/create", handler.CreateUser).Methods("POST")
 
-	log.Fatal(http.ListenAndServe(":3001", router))
+	log.Fatal(http.ListenAndServe(":3000", router))
 }
 
 //program starts from here
