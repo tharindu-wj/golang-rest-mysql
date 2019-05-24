@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-//get all posts w http.ResponseWriter, r *http.Request
+//get all posts
 func GetPosts(w http.ResponseWriter, r *http.Request) {
 	result := db.FindAll("posts")
 	post := model.Post{}
@@ -32,7 +32,7 @@ func GetPosts(w http.ResponseWriter, r *http.Request) {
 
 }
 
-//get single post data
+//get single post
 func GetPost(w http.ResponseWriter, r *http.Request) {
 	postID := mux.Vars(r)["id"]
 
@@ -61,14 +61,14 @@ func GetPost(w http.ResponseWriter, r *http.Request) {
 func CreatePost(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	items := map[string]string{
-		"title" : r.Form.Get("title"),
-		"body" :r.Form.Get("body"),
-		"user" : r.Form.Get("user"),
+		"title": r.Form.Get("title"),
+		"body":  r.Form.Get("body"),
+		"user":  r.Form.Get("user"),
 	}
 
 	result := db.Save("posts", items)
 
-	if(result){
+	if (result) {
 		json.NewEncoder(w).Encode("New Post Created")
 	}
 }
@@ -79,7 +79,7 @@ func RemovePost(w http.ResponseWriter, r *http.Request) {
 
 	result := db.Remove("posts", postID)
 
-	if(result){
+	if (result) {
 		json.NewEncoder(w).Encode("Post Deleted")
 	}
 }

@@ -38,14 +38,14 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 func CreateUser(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	items := map[string]string{
-		"name" : r.Form.Get("name"),
-		"email" :r.Form.Get("email"),
-		"company" : r.Form.Get("company"),
+		"name":    r.Form.Get("name"),
+		"email":   r.Form.Get("email"),
+		"company": r.Form.Get("company"),
 	}
 
 	result := db.Save("users", items)
 
-	if(result){
+	if (result) {
 		json.NewEncoder(w).Encode("New User Created")
 	}
 }

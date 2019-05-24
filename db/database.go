@@ -3,13 +3,15 @@ package db
 import (
 	"bytes"
 	"database/sql"
+	"fmt"
 )
 
 var connection = DBConn()
 
-//get all records from table
+//get all rows from a table
 func FindAll(table string) *sql.Rows {
-	result, err := connection.Query("SELECT * FROM " + table + " ORDER BY created_at DESC")
+	sqlQuery := fmt.Sprintf("SELECT * FROM %s ORDER BY created_at DESC", table)
+	result, err := connection.Query(sqlQuery)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -17,9 +19,10 @@ func FindAll(table string) *sql.Rows {
 	return result
 }
 
-//get one record from table
+//get single row from a table
 func FindBy(table string, key string) *sql.Rows {
-	result, err := connection.Query("SELECT * FROM " + table + " WHERE id=" + key)
+	sqlQuery := fmt.Sprintf("SELECT * FROM %s WHERE id=%s", table, key)
+	result, err := connection.Query(sqlQuery)
 	if err != nil {
 		panic(err.Error())
 	}
@@ -27,22 +30,22 @@ func FindBy(table string, key string) *sql.Rows {
 	return result
 }
 
-//save record to table
+//save record to a table
 func Save(table string, item map[string]string) bool {
 
 	var columns, values bytes.Buffer
 
 	i := 1
-	itemLenght := len(item)
+	itemLength := len(item)
 
 	for k, v := range item {
-		if (itemLenght >= i) {
+		if itemLength >= i {
 			values.WriteString("'")
 		}
 		columns.WriteString(k)
 		values.WriteString(v)
 
-		if (itemLenght > i) {
+		if itemLength > i {
 			values.WriteString("'")
 			columns.WriteString(",")
 			values.WriteString(",")
@@ -55,7 +58,8 @@ func Save(table string, item map[string]string) bool {
 	columnString := columns.String()
 	valueString := values.String()
 
-	_, err := connection.Query("INSERT INTO " + table + "(" + columnString + ") VALUES(" + valueString + ")")
+	sqlQuery := fmt.Sprintf("INSERT INTO %s (%s) VALUES(%s)", table, columnString, valueString)
+	_, err := connection.Query(sqlQuery)
 	if err != nil {
 		panic(err.Error())
 	} else {
@@ -64,9 +68,10 @@ func Save(table string, item map[string]string) bool {
 
 }
 
-//delete record from table
-func Remove(table string, key string)bool {
-	_, err := connection.Query("DELETE  FROM " + table + " WHERE id=" + key)
+//delete row from a table
+func Remove(table string, key string) bool {
+	sqlQuery := fmt.Sprintf("DELETE  FROM %s  WHERE id=%s", table, key)
+	_, err := connection.Query(sqlQuery)
 	if err != nil {
 		panic(err.Error())
 	} else {
