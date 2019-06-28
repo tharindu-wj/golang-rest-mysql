@@ -18,6 +18,7 @@ func handleRequests() {
 	subRouter.HandleFunc("/post/{id}", handler.GetPost).Methods("GET")
 	subRouter.HandleFunc("/post/delete/{id}", handler.RemovePost).Methods("DELETE")
 	subRouter.HandleFunc("/companies", handler.GetCompanies).Methods("GET")
+	subRouter.HandleFunc("/categories", handler.GetCategories).Methods("GET")
 	subRouter.HandleFunc("/users", handler.GetUsers).Methods("GET")
 	subRouter.HandleFunc("/user/create", handler.CreateUser).Methods("POST")
 
