@@ -6,4 +6,5 @@ type Post struct {
 	Body    string
 	Created string
 	User    int
+	Category    int
 }

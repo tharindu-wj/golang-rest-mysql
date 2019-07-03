@@ -14,9 +14,9 @@ func GetPosts(w http.ResponseWriter, r *http.Request) {
 	post := model.Post{}
 	posts := []model.Post{}
 	for result.Next() {
-		var id, user int
+		var id, user, category int
 		var title, body, created_at string
-		err := result.Scan(&id, &title, &body, &user, &created_at)
+		err := result.Scan(&id, &title, &body, &user, &category, &created_at)
 		if err != nil {
 			panic(err.Error())
 		}
@@ -24,6 +24,7 @@ func GetPosts(w http.ResponseWriter, r *http.Request) {
 		post.Title = title
 		post.Body = body
 		post.User = user
+		post.Category = category
 		post.Created = created_at
 		posts = append(posts, post)
 	}
